@@ -1,0 +1,16 @@
+{
+  "name": "nodejs-simple-image",
+  "version": "0.0.0",
+  "description": "nodejs image demo",
+  "author": "",
+  "license": "n/a",
+  "main": "app.js",
+  "keywords": [
+    "nodejs",
+    "express"
+  ],
+  "dependencies": {
+    "express": "^4.16.4", 
+    "express-fileupload": "^1.4.3"
+  }
+}

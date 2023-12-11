@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-simple-image
+  labels:
+    app: nodejs-simple-image
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-simple-image
+  template:
+    metadata:
+      labels:
+        app: nodejs-simple-image
+    spec:
+      containers:
+      - name: nodejs-simple-image
+        image: ....azurecr.io/nodejs-simple-image:latest
+        ports:
+        - containerPort: 8000
