@@ -31,10 +31,10 @@ deploy:
     - echo "Content of gitlab directory:"
     - ls
     - echo "Applying deployment.yaml to create container"
-    - kubectl apply -f kubernetes/deployment.yaml
+    - kubectl apply -f yamls/deployment.yaml
     - echo "Applying upskilling-pvc.yaml to create PersistantVolumeClaim"
-    - kubectl apply -f kubernetes/upskilling-pvc.yaml
+    - kubectl apply -f yamls/upskilling-pvc.yaml
     - echo "Applying upskilling-pv.yaml to mount claimed storage under /home/storage"
-    - kubectl apply -f kubernetes/upskilling-pv.yaml
+    - kubectl apply -f yamls/upskilling-pv.yaml
     - echo "Applying service.yaml to expose application"
-    - kubectl apply -f kubernetes/service.yaml
+    - kubectl apply -f yamls/service.yaml
