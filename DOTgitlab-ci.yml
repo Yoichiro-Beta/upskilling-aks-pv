@@ -1,0 +1,40 @@
+variables:
+  KUBE_CONTEXT: yoichiro-beta1/upskilling-aks-pv:aks-agent
+
+default:
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+
+build-job:
+  stage: build
+  script:
+    - echo "Logging in to Azure's ContainerRegistry"
+    - docker login -u GitLabPush -p $AZURECR_PW yoichirobeta.azurecr.io
+    - echo "Docker build and tag the code in the ContrainerRegistry"
+    - docker build -t yoichirobeta.azurecr.io/nodejs-simple-image .
+    - echo "Pushing the image to the ContainerRegistry"
+    - docker push yoichirobeta.azurecr.io/nodejs-simple-image
+    - echo "Build & Push Completed... "
+
+.kube-context:
+  before_script:
+  - if [ -n "$KUBE_CONTEXT" ]; then kubectl config use-context "$KUBE_CONTEXT"; fi
+
+deploy:
+  extends: [.kube-context]
+  stage: deploy
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: [""]
+  script:
+    - echo "Content of gitlab directory:"
+    - ls
+    - echo "Applying deployment.yaml to create container"
+    - kubectl apply -f kubernetes/deployment.yaml
+    - echo "Applying upskilling-pvc.yaml to create PersistantVolumeClaim"
+    - kubectl apply -f kubernetes/upskilling-pvc.yaml
+    - echo "Applying upskilling-pv.yaml to mount claimed storage under /home/storage"
+    - kubectl apply -f kubernetes/upskilling-pv.yaml
+    - echo "Applying service.yaml to expose application"
+    - kubectl apply -f kubernetes/service.yaml
