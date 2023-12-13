@@ -1,3 +1,5 @@
 # upskilling-aks-pv
 
-Rename the DOTgitlab-ci.yml to .gitlab-ci.yml
+##Important:
+set the Azure ContainerRepository in the yalms/deployment.yaml file to your own.
+This one is set to a dummy repo.
