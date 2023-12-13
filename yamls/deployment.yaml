@@ -16,6 +16,13 @@ spec:
     spec:
       containers:
       - name: nodejs-simple-image
-        image: ....azurecr.io/nodejs-simple-image:latest
+        image: setyourrepo.azurecr.io/nodejs-simple-image:latest
         ports:
         - containerPort: 8000
+        volumeMounts:
+        - name: upskilling-pv
+          mountPath: /home/storage
+      volumes:
+      - name: upskilling-pv
+        persistentVolumeClaim:
+          claimName: upskilling-pvc

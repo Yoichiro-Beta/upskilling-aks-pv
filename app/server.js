@@ -2,7 +2,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const app = express();
 const port = 8000;
-const pv = "./home/storage"
+const pv = "/home/storage"
 
 var cheapFilenameCache = [];
 
